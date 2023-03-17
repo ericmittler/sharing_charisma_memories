@@ -1,0 +1,22 @@
+{
+  "name": "charisma_memory_example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericmittler/sharing_charisma_memories.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericmittler/sharing_charisma_memories/issues"
+  },
+  "homepage": "https://github.com/ericmittler/sharing_charisma_memories#readme",
+  "dependencies": {
+    "@charisma-ai/sdk": "^3.9.0"
+  }
+}
