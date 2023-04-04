@@ -13,8 +13,13 @@ Thanks to bigwooshi at Charisma, I have corrected this and it should
 work to demo how to share memories between two user experiences on
 the same Charisa.ai story!
 
-If you see the example output below, you can see the playthough
-memories for one player do not match the other player. 
+If you see the example output below, memories set (both by SDK)
+and by Charisa node are shared between two user player experiences.
+
+The example Charisma story (ID 13007) is only playable via this SDK example.
+If you want to try it out yourself, it won't work without the API
+key and an accessible version of the story. Since that does cost me
+to run, I can help you make a copy of this for your experimentation.
 
 ## Set Up
 ```
