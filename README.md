@@ -5,16 +5,12 @@ players interacting with two subplots of the same story.
 The goal is to have an event from one player interact
 with the other player.
 
-~~This code, at present, does not work! That's the point. I'm using
-this to see if I can either fix this JavaScript or the Charisma
-story so that the memories are shared.~~
-
 Thanks to bigwooshi at Charisma, I have corrected this and it should
 work to demo how to share memories between two user experiences on
 the same Charisa.ai story!
 
-If you see the example output below, memories set (both by SDK)
-and by Charisa node are shared between two user player experiences.
+If you see the example output below, memories (set both by SDK
+and by Charisa node) are shared between two user player experiences.
 
 The example Charisma story (ID 13007) is only playable via this SDK example.
 If you want to try it out yourself, it won't work without the API
