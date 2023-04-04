@@ -16,20 +16,22 @@ const playthroughToken = await CharismaSDK.createPlaythroughToken({
   languageCode: 'en',
 })
 
-const conversationId = await CharismaSDK.createConversation(playthroughToken)
-const bertPlaythrough = new CharismaSDK.Playthrough(playthroughToken)
-// await bertPlaythrough.setMemory('kermit_count', '0')
-await bertPlaythrough.setMemory('kermit_count', '0')
-await bertPlaythrough.setMemory('kermit_done', 'false')
-await bertPlaythrough.setMemory('player_1_name', 'Miss Piggy')
-const kermitPlaythrough = new CharismaSDK.Playthrough(playthroughToken)
-await kermitPlaythrough.setMemory('bert_count', '0')
-await kermitPlaythrough.setMemory('player_2_name', 'Oscar')
-await kermitPlaythrough.setMemory('bert_done', 'false')
+const bertConversationId = await CharismaSDK.createConversation(playthroughToken)
+const kermitConversationId = await CharismaSDK.createConversation(playthroughToken)
 
-const bertConversation = bertPlaythrough.joinConversation(conversationId)
-const kermitConversation = kermitPlaythrough.joinConversation(conversationId)
-console.log(`Joined conversation ${conversationId}`)
+const playthrough = new CharismaSDK.Playthrough(playthroughToken)
+await playthrough.setMemory('kermit_count', '0')
+await playthrough.setMemory('kermit_done', 'false')
+await playthrough.setMemory('player_1_name', 'Miss Piggy')
+
+await playthrough.setMemory('bert_count', '0')
+await playthrough.setMemory('player_2_name', 'Oscar')
+await playthrough.setMemory('bert_done', 'false')
+
+const bertConversation = playthrough.joinConversation(bertConversationId)
+console.log(`Joined bertConversation ${bertConversationId}`)
+const kermitConversation = playthrough.joinConversation(kermitConversationId)
+console.log(`Joined kermitConversation ${kermitConversationId}`)
 
 bertConversation.on('message', event => processMessageEvent(event))
 bertConversation.on('reply', reply => console.log(reply))
@@ -37,28 +39,24 @@ kermitConversation.on('message', event => processMessageEvent(event))
 kermitConversation.on('reply', reply => console.log(reply))
 
 let bertStarted = false
-bertPlaythrough.on('connection-status', status => {
+let kermitStarted = false
+playthrough.on('connection-status', status => {
   console.log(`Bert connection status is now "${status}". Started is ${bertStarted}`)
   if (status === 'connected' && !bertStarted) {
-    console.log(`Starting Bert conversation for ID ${conversationId} at subplot ${bertSubplot1RefID}`)
+    console.log(`Starting Bert conversation for ID ${bertConversationId} at subplot ${bertSubplot1RefID}`)
     bertConversation.start({ startGraphReferenceId: bertSubplot1RefID })
     bertStarted = true
     console.log(`Bert started is now ${bertStarted}`)
   }
-})
-let kermitStarted = false
-kermitPlaythrough.on('connection-status', status => {
   console.log(`Kermit connection status is now "${status}". Started is ${kermitStarted}`)
   if (status === 'connected' && !kermitStarted) {
-    console.log(`Starting Kermit conversation for ID ${conversationId} at subplot ${kemitSubplot1RefID}`)
+    console.log(`Starting Kermit conversation for ID ${bertConversationId} at subplot ${kemitSubplot1RefID}`)
     kermitConversation.start({ startGraphReferenceId: kemitSubplot1RefID })
     kermitStarted = true
     console.log(`Kermit started is now ${kermitStarted}`)
   }
 })
-
-bertPlaythrough.connect()
-kermitPlaythrough.connect()
+playthrough.connect()
 
 const processMessageEvent = event => {
   const characterName = event.message.character.name
